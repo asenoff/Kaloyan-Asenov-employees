@@ -1,7 +1,17 @@
+using Autofac;
+using Employees.Core;
+using Employees.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule(new CoreModule());
+    containerBuilder.RegisterModule(new InfrastructureModule());
+});
 
 var app = builder.Build();
 
