@@ -1,6 +1,6 @@
 ﻿using Employees.Core.Interfaces;
 
-namespace Emploeyees.Infrastructure
+namespace Employees.Infrastructure
 {
     public class SVCDataProcessor : IDataProcessor
     {

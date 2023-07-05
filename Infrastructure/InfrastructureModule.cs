@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Emploeyees.Infrastructure;
 using Employees.Core.Interfaces;
 
 namespace Employees.Infrastructure

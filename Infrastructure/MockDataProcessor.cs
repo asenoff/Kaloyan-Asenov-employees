@@ -1,7 +1,7 @@
 ﻿using Employees.Core.Interfaces;
 using Employees.Core.Employees;
 
-namespace Emploeyees.Infrastructure
+namespace Employees.Infrastructure
 {
     public class MockDataProcessor : IDataProcessor
     {
