@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Employees.Core.Employees;
+using Employees.Core.Coworking.Interfaces;
 
 namespace Kaloyan_Asenov_employees.Pages
 {
@@ -7,14 +9,42 @@ namespace Kaloyan_Asenov_employees.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly ITopCoworkers _topCoworkers;
+
+        private readonly IAllCoworkers _allCoworkers;
+
+        private const int FILE_CONTENT_MAX_LENGTH = 2000;
+        internal string FileContent { get; set; } = "";
+
+        internal int DisplayFileLength { get { return (FileContent.Length > FILE_CONTENT_MAX_LENGTH) ? FILE_CONTENT_MAX_LENGTH : FileContent.Length;  } }
+
+        internal List<TopEmployeePairModel> TopCoworkers { get; private set; } = new List<TopEmployeePairModel>();
+
+        internal List<EmployeesProjectDaysModel> AllCoworkers { get; private set; } = new List<EmployeesProjectDaysModel>();
+
+        public IndexModel(ILogger<IndexModel> logger, ITopCoworkers topCoworkers, IAllCoworkers allCoworkers)
         {
             _logger = logger;
+            _topCoworkers = topCoworkers;
+            _allCoworkers = allCoworkers;
         }
 
         public void OnGet()
         {
 
+        }
+
+        public void OnPost(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    FileContent = reader.ReadToEnd();
+                    TopCoworkers = _topCoworkers.GetTopCoworkers(FileContent);
+                    AllCoworkers = _allCoworkers.GetAllCoworkers(FileContent);
+                }
+            }
         }
     }
 }

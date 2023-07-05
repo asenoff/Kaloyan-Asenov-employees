@@ -5,5 +5,60 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" />
+        <button type="submit">Upload</button>
+    </form>
+
+    @if (Model.FileContent != null)
+    {
+        <div>
+            <h4>CSV File Contents (first @Model.DisplayFileLength charachters):</h4>
+            <pre>@Model.FileContent.Substring(0, @Model.DisplayFileLength)</pre>
+        </div>
+    }
+
+    @if (Model.TopCoworkers.Count > 0)
+    {
+        <p>EmployeeID 1, EmployeeID 2, Days of collaboration</p>
+        <ul style="list-style-type:none;">
+            @foreach (var coworker in Model.TopCoworkers)
+            {
+                <li>@coworker.Employee1ID, @coworker.Employee2ID, @coworker.DaysCollaborated</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No top employees found</p>
+    }
+
+    @if (Model.AllCoworkers.Count > 0)
+    {
+        <table id="allCoworkersDataTable">
+            <thead>
+                <tr>
+                    <th>Employee 1 ID</th>
+                    <th>Employee 2 ID</th>
+                    <th>Project ID</th>
+                    <th>Days of collaboration</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var coworker in Model.AllCoworkers)
+                {
+                    <tr>
+                        <td>@coworker.Employee1ID</td>
+                        <td>@coworker.Employee2ID</td>
+                        <td>@coworker.ProjectID</td>
+                        <td>@coworker.DaysOfCoworking</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No collaborations found</p>
+    }
 </div>
