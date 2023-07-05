@@ -1,8 +1,11 @@
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Employees.Core;
 using Employees.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
 // Add services to the container.
 builder.Services.AddRazorPages();
