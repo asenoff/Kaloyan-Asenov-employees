@@ -24,7 +24,7 @@ namespace Employees.Core.Coworking
 
         private List<TopEmployeePairModel> GetTopEmployees(Dictionary<ulong, List<(DateTime, DateTime)>> intervalsByEmployeePair)
         {
-            List<TopEmployeePairModel> daysByPair = new List<TopEmployeePairModel>();
+            List<TopEmployeePairModel> daysByPair = new();
             var highestScore = 0;
             foreach (var employeePair in intervalsByEmployeePair)
             {
@@ -55,7 +55,7 @@ namespace Employees.Core.Coworking
 
         private Dictionary<ulong, List<(DateTime, DateTime)>> CalculateIntersectionsByEmployeePair(Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> data)
         {
-            Dictionary<ulong, List<(DateTime, DateTime)>> intersectionsByPair = new Dictionary<ulong, List<(DateTime, DateTime)>>();
+            Dictionary<ulong, List<(DateTime, DateTime)>> intersectionsByPair = new();
             foreach (var employeePair in data)
             {
                 List <(DateTime, DateTime)> referenceIntervals = employeePair.Value.ElementAt(0).Value;
@@ -67,7 +67,7 @@ namespace Employees.Core.Coworking
                         continue;
                     }
 
-                    List<(DateTime, DateTime)> intersections = new List<(DateTime, DateTime)> ();
+                    List<(DateTime, DateTime)> intersections = new();
                     foreach (var interval1 in referenceIntervals)
                     {
                         foreach (var interval2 in projectIntervals.Value)
