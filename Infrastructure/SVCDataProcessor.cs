@@ -11,10 +11,8 @@ namespace Employees.Infrastructure
             "yyyy-MM-dd",
             "dd/MM/yyyy",
             "yyyy/MM/dd",
-            "MM-dd-yyyy",
             "dd-MM-yyyy",
             "yyyy/dd/MM",
-            "MM.dd.yyyy",
             "dd.MM.yyyy",
             "yyyy.MM.dd",
             "dd/MM/yy",
@@ -35,7 +33,7 @@ namespace Employees.Infrastructure
 
         private const string NULL_PLACEHOLDER = "NULL";
 
-        List<RawEmployeeProjectModel> IDataProcessor.GetRawData(string contents)
+        public List<RawEmployeeProjectModel> GetRawData(string contents)
         {
             List<RawEmployeeProjectModel> records = new List<RawEmployeeProjectModel>();
             using (TextReader reader = new StringReader(contents))
