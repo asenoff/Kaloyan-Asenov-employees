@@ -10,11 +10,18 @@
         <button type="submit">Upload</button>
     </form>
 
-    @if (Model.FileContent != null)
+    @if (!string.IsNullOrEmpty(Model.FileContent))
     {
         <div>
             <h4>CSV File Contents (first @Model.DisplayFileLength charachters):</h4>
             <pre>@Model.FileContent.Substring(0, @Model.DisplayFileLength)</pre>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.LastErrorMessage))
+    {
+        <div>
+            <p><strong>Error in application: @Model.LastErrorMessage</strong></p>
         </div>
     }
 

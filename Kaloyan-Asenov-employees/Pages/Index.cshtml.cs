@@ -14,7 +14,10 @@ namespace Kaloyan_Asenov_employees.Pages
         private readonly IAllCoworkers _allCoworkers;
 
         private const int FILE_CONTENT_MAX_LENGTH = 2000;
-        internal string FileContent { get; set; } = "";
+
+        internal string LastErrorMessage { get; set; } = string.Empty;
+
+        internal string FileContent { get; set; } = string.Empty;
 
         internal int DisplayFileLength { get { return (FileContent.Length > FILE_CONTENT_MAX_LENGTH) ? FILE_CONTENT_MAX_LENGTH : FileContent.Length;  } }
 
@@ -38,11 +41,18 @@ namespace Kaloyan_Asenov_employees.Pages
         {
             if (file != null && file.Length > 0)
             {
-                using (var reader = new StreamReader(file.OpenReadStream()))
+                try
                 {
-                    FileContent = reader.ReadToEnd();
-                    TopCoworkers = _topCoworkers.GetTopCoworkers(FileContent);
-                    AllCoworkers = _allCoworkers.GetAllCoworkers(FileContent);
+                    using (var reader = new StreamReader(file.OpenReadStream()))
+                    {
+                        FileContent = reader.ReadToEnd();
+                        TopCoworkers = _topCoworkers.GetTopCoworkers(FileContent);
+                        AllCoworkers = _allCoworkers.GetAllCoworkers(FileContent);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    LastErrorMessage = ex.Message;
                 }
             }
         }
