@@ -1,8 +1,6 @@
 ﻿using Employees.Core.Coworking.Interfaces;
 using Employees.Common;
 using Employees.Core.Employees;
-using System.Collections.Generic;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Employees.Core.Coworking
 {
@@ -55,10 +53,10 @@ namespace Employees.Core.Coworking
 
         private Dictionary<ulong, List<(DateTime, DateTime)>> CalculateIntersectionsByEmployeePair(Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> data)
         {
-            Dictionary<ulong, List<(DateTime, DateTime)>> intersectionsByPair = new();
+            Dictionary<ulong, List<(DateTime, DateTime)>> combinedByPair = new();
             foreach (var employeePair in data)
             {
-                List <(DateTime, DateTime)> referenceIntervals = employeePair.Value.ElementAt(0).Value;
+                List<(DateTime, DateTime)> referenceIntervals = employeePair.Value.ElementAt(0).Value;
                 uint referenceProjectID = employeePair.Value.ElementAt(0).Key;
                 foreach (var projectIntervals in employeePair.Value)
                 {
@@ -67,30 +65,48 @@ namespace Employees.Core.Coworking
                         continue;
                     }
 
-                    List<(DateTime, DateTime)> intersections = new();
-                    foreach (var interval1 in referenceIntervals)
-                    {
-                        foreach (var interval2 in projectIntervals.Value)
-                        {
-                            if (interval1.Item1 <= interval2.Item2 && interval2.Item1 <= interval1.Item2)
-                            {
-                                var intersection = (
-                                    interval1.Item1 > interval2.Item1 ? interval1.Item1 : interval2.Item1,
-                                    interval1.Item2 < interval2.Item2 ? interval1.Item2 : interval2.Item2
-                                );
-
-                                intersections.Add(intersection);
-                            }
-                        }
-                    }
-
+                    List<(DateTime, DateTime)> intersections = GetCombinedIntervals(referenceIntervals, projectIntervals.Value);
                     referenceIntervals = intersections;
                 }
 
-                intersectionsByPair.Add(employeePair.Key, referenceIntervals);
+                combinedByPair.Add(employeePair.Key, referenceIntervals);
             }
 
-            return intersectionsByPair;
+            return combinedByPair;
+        }
+
+        public static List<(DateTime, DateTime)> GetCombinedIntervals(List<(DateTime, DateTime)> intervals1, List<(DateTime, DateTime)> intervals2)
+        {
+            List<(DateTime, DateTime)> combinedIntervals = new List<(DateTime, DateTime)>();
+            if(intervals1.Count == 0 && intervals2.Count == 0)
+            {
+                return combinedIntervals;
+            }
+
+            combinedIntervals.AddRange(intervals1);
+            combinedIntervals.AddRange(intervals2);
+            combinedIntervals.Sort((x, y) => x.Item1.CompareTo(y.Item1));
+
+            List<(DateTime, DateTime)> combinedResult = new List<(DateTime, DateTime)>();
+
+            (DateTime, DateTime) currentInterval = combinedIntervals[0];
+            for (int i = 1; i < combinedIntervals.Count; i++)
+            {
+                (DateTime, DateTime) interval = combinedIntervals[i];
+
+                if (interval.Item1 <= currentInterval.Item2)
+                {
+                    currentInterval = (currentInterval.Item1, interval.Item2);
+                }
+                else
+                {
+                    combinedResult.Add(currentInterval);
+                    currentInterval = interval;
+                }
+            }
+
+            combinedResult.Add(currentInterval);
+            return combinedResult;
         }
     }
 }
