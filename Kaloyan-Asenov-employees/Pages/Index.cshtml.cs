@@ -13,7 +13,7 @@ namespace Kaloyan_Asenov_employees.Pages
 
         private readonly IAllCoworkers _allCoworkers;
 
-        private const int FILE_CONTENT_MAX_LENGTH = 200;
+        private const int FILE_CONTENT_MAX_LENGTH = 500;
 
         internal string LastErrorMessage { get; set; } = string.Empty;
 

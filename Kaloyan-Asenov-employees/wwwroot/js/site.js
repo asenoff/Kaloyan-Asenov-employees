@@ -5,6 +5,6 @@
 
 $(document).ready(function () {
     $('#allCoworkersDataTable').DataTable({
-        "pageLength": 20
+        "pageLength": 15
     });
 });
