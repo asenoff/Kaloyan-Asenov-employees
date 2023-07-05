@@ -1,4 +1,4 @@
-﻿using Employees.Core.Interfaces;
+using Employees.Core.Interfaces;
 using Employees.Core.Employees;
 
 namespace Employees.Infrastructure
@@ -40,7 +40,18 @@ namespace Employees.Infrastructure
                         new RawEmployeeProjectModel { EmployeeID = 1, ProjectID = 1, FromDate = DateTime.Now.AddDays(-10), ToDate = DateTime.Now }
                     };
                     break;
-
+                case MultiDataUseCase.ThreeEmployeesFiveProjectsMultiData:
+                    testData = new List<RawEmployeeProjectModel>
+                    {
+                        new RawEmployeeProjectModel { EmployeeID = 2, ProjectID = 1, FromDate = DateTime.Now.AddDays(-30), ToDate = DateTime.Now },
+                        new RawEmployeeProjectModel { EmployeeID = 2, ProjectID = 1, FromDate = DateTime.Now.AddDays(-60), ToDate = DateTime.Now.AddDays(-50) },
+                        new RawEmployeeProjectModel { EmployeeID = 2, ProjectID = 2, FromDate = DateTime.Now.AddDays(-20), ToDate = DateTime.Now },
+                        new RawEmployeeProjectModel { EmployeeID = 2, ProjectID = 5, FromDate = DateTime.Now.AddDays(-10), ToDate = DateTime.Now },
+                        new RawEmployeeProjectModel { EmployeeID = 1, ProjectID = 1, FromDate = DateTime.Now.AddDays(-5), ToDate = DateTime.Now },
+                        new RawEmployeeProjectModel { EmployeeID = 3, ProjectID = 1, FromDate = DateTime.Now.AddDays(-30), ToDate = DateTime.Now.AddDays(-20) },
+                        new RawEmployeeProjectModel { EmployeeID = 3, ProjectID = 1, FromDate = DateTime.Now.AddDays(-10), ToDate = DateTime.Now }
+                    };
+                    break;
                 default:
                     testData = new List<RawEmployeeProjectModel>();
                     break;
