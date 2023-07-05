@@ -2,6 +2,7 @@
 using Employees.Core.Interfaces;
 using Employees.Common;
 using Employees.Core.Coworking.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Employees.Core.Coworking
 {
@@ -16,7 +17,7 @@ namespace Employees.Core.Coworking
 
         public Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> PreProcess(string data)
         {
-            List<RawEmployeeProjectModel> rawData = _dataProcessor.GetRawData<RawEmployeeProjectModel>(data);
+            List<RawEmployeeProjectModel> rawData = _dataProcessor.GetRawData(data);
             Dictionary<uint, Dictionary<uint, List<(DateTime, DateTime)>>> rawDataGroupedByProject = GroupDataByProjects(rawData);
             Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> intervalsCollaborated = CalculateIntervalsCollaborated(rawDataGroupedByProject);
             return intervalsCollaborated;
@@ -43,10 +44,10 @@ namespace Employees.Core.Coworking
                             aggregatedDataByEmployees.Add(keyPair, new Dictionary<uint, List<(DateTime, DateTime)>>());
                         }
 
-                        List<(DateTime, DateTime)> daysCountForPair = GetIntervalsCollaboratedByEmployeesAndProject(project, employee1ID, employee2ID);
+                        List<(DateTime, DateTime)> intervalsForPair = GetIntervalsCollaboratedByEmployeesAndProject(project, employee1ID, employee2ID);
                         if (!aggregatedDataByEmployees[keyPair].ContainsKey(project.Key))
                         {
-                            aggregatedDataByEmployees[keyPair].Add(project.Key, daysCountForPair);
+                            aggregatedDataByEmployees[keyPair].Add(project.Key, intervalsForPair);
                         }
                         else
                         {
@@ -61,7 +62,7 @@ namespace Employees.Core.Coworking
 
         private List<(DateTime, DateTime)> GetIntervalsCollaboratedByEmployeesAndProject(KeyValuePair<uint, Dictionary<uint, List<(DateTime, DateTime)>>> project, uint employee1ID, uint employee2ID)
         {
-            List<(DateTime, DateTime)> intersections = new List<(DateTime, DateTime)>();
+            List<(DateTime, DateTime)> intersections = new();
             List<(DateTime, DateTime)> timeIntervalsEmployee1 = AggregateOverlappingIntervals(project.Value[employee1ID]);
             List<(DateTime, DateTime)> timeIntervalsEmployee2 = AggregateOverlappingIntervals(project.Value[employee2ID]);
             foreach ((DateTime, DateTime) timeInterval in timeIntervalsEmployee1)
@@ -72,12 +73,62 @@ namespace Employees.Core.Coworking
                 {
                     DateTime startDateInterval2 = innerTimeInterval.Item1.Date;
                     DateTime endDateInterval2 = innerTimeInterval.Item2.Date;
-                    if (startDateInterval1 <= endDateInterval2 && startDateInterval2 <= startDateInterval1)
-                    {
-                        DateTime fromDate = DateTime.Compare(startDateInterval1, startDateInterval2) > 0 ? startDateInterval1 : startDateInterval2;
-                        DateTime toDate = DateTime.Compare(endDateInterval1, endDateInterval2) < 0 ? endDateInterval1 : endDateInterval2;
 
-                        intersections.Add((fromDate, toDate));
+                    // getting through different types of intersections
+                    DateTime intersectionFromDate, intersectionToDate;
+                    // one day overlap
+                    if (startDateInterval1 == endDateInterval2)
+                    {
+                        intersectionFromDate = intersectionToDate = startDateInterval1;
+                        intersections.Add((intersectionFromDate, endDateInterval2));
+                        continue;
+                    }
+
+                    // one day overlap
+                    if (endDateInterval1 == startDateInterval2)
+                    {
+                        intersectionFromDate = intersectionToDate = endDateInterval1;
+                        intersections.Add((intersectionFromDate, intersectionToDate));
+                        continue;
+                    }
+
+                    // overlap second
+                    if (endDateInterval1 > startDateInterval2 && endDateInterval1 < endDateInterval2)
+                    {
+                        if (startDateInterval1 > startDateInterval2)
+                        {
+                            //consumes second interval
+                            intersectionFromDate = startDateInterval1;
+                            intersectionToDate = endDateInterval1;
+                        }
+                        else
+                        {
+                            //overlaps second interval
+                            intersectionFromDate = startDateInterval2;
+                            intersectionToDate = endDateInterval1;                            
+                        }
+
+                        intersections.Add((intersectionFromDate, intersectionToDate));
+                        continue;
+                    }
+
+                    if (startDateInterval1 < endDateInterval2 && endDateInterval2 < endDateInterval1)
+                    {
+                        if (startDateInterval1 < startDateInterval2)
+                        {
+                            //consumes first interval
+                            intersectionFromDate = startDateInterval2;
+                            intersectionToDate = endDateInterval2;
+                        }
+                        else
+                        {
+                            //overlaps first interval
+                            intersectionFromDate = startDateInterval1;
+                            intersectionToDate = endDateInterval2;
+                        }
+
+                        intersections.Add((intersectionFromDate, intersectionToDate));
+                        continue;
                     }
                 }
             }
@@ -88,7 +139,7 @@ namespace Employees.Core.Coworking
         private Dictionary<uint, Dictionary<uint, List<(DateTime, DateTime)>>> GroupDataByProjects(List<RawEmployeeProjectModel> rawData)
         {
             Dictionary<uint, Dictionary<uint, List<(DateTime, DateTime)>>> rawDataByProject
-                = new Dictionary<uint, Dictionary<uint, List<(DateTime, DateTime)>>>();
+                = new();
             foreach (var line in rawData)
             {
                 var projectID = line.ProjectID;
