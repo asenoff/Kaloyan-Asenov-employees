@@ -92,9 +92,9 @@ namespace Employees.Core.Coworking
                     }
 
                     // overlap second
-                    if (endDateInterval1 > startDateInterval2 && endDateInterval1 < endDateInterval2)
+                    if (endDateInterval1 >= startDateInterval2 && endDateInterval1 <= endDateInterval2)
                     {
-                        if (startDateInterval1 > startDateInterval2)
+                        if (startDateInterval1 >= startDateInterval2)
                         {
                             //consumes second interval
                             intersectionFromDate = startDateInterval1;
@@ -111,9 +111,9 @@ namespace Employees.Core.Coworking
                         continue;
                     }
 
-                    if (startDateInterval1 < endDateInterval2 && endDateInterval2 < endDateInterval1)
+                    if (startDateInterval1 <= endDateInterval2 && endDateInterval2 <= endDateInterval1)
                     {
-                        if (startDateInterval1 < startDateInterval2)
+                        if (startDateInterval1 <= startDateInterval2)
                         {
                             //consumes first interval
                             intersectionFromDate = startDateInterval2;
