@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employees.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employees.IntegrationTests", "..\IntegrationTests\Employees.IntegrationTests.csproj", "{84418D0E-CEAD-4D53-B06F-EB12F1B927F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employees.CSVFileGenerator", "..\CSVFileGenerator\Employees.CSVFileGenerator.csproj", "{D79E62F4-2E8C-4032-AA0D-2403E966FC3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{84418D0E-CEAD-4D53-B06F-EB12F1B927F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84418D0E-CEAD-4D53-B06F-EB12F1B927F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84418D0E-CEAD-4D53-B06F-EB12F1B927F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D79E62F4-2E8C-4032-AA0D-2403E966FC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79E62F4-2E8C-4032-AA0D-2403E966FC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79E62F4-2E8C-4032-AA0D-2403E966FC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79E62F4-2E8C-4032-AA0D-2403E966FC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E1BD9797-055A-42C4-AAF2-6E1048764AA4} = {904C2239-F5B2-487F-B473-1AC01019FCCC}
 		{84418D0E-CEAD-4D53-B06F-EB12F1B927F0} = {904C2239-F5B2-487F-B473-1AC01019FCCC}
+		{D79E62F4-2E8C-4032-AA0D-2403E966FC3D} = {904C2239-F5B2-487F-B473-1AC01019FCCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE87DF48-6CF6-45A7-9EDA-C6F4C55C10B6}
