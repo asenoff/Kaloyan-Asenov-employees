@@ -67,6 +67,10 @@ namespace Employees.Infrastructure
                         }
                     }
 
+                    if(fromDate > toDate)
+                    {
+                        throw new ArgumentException($"start date ${fromDateStr} should be before end date ${toDateStr}");
+                    }
 
                     var record = new RawEmployeeProjectModel
                     {
