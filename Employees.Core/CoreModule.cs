@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using Employees.Core.Interfaces;
+using Employees.Core.Coworking;
+using Employees.Core.Coworking.Interfaces;
 
 namespace Employees.Core
 {
@@ -8,8 +9,9 @@ namespace Employees.Core
         protected override void Load(ContainerBuilder builder)
         {
             // Register services and dependencies
-            builder.RegisterType<CoworkersPreProcessor>();
-            builder.RegisterType<AllCoworkersProcessor>().As<IAllCoworkers>();
+            builder.RegisterType<TopCoworkersProcessor>().As<ITopCoworkers>().SingleInstance();
+            builder.RegisterType<AllCoworkersProcessor>().As<IAllCoworkers>().SingleInstance();
+            builder.RegisterType<CoworkersPreProcessor>().As<ICoworkersPreProcessor>().SingleInstance();
         }
     }
 }

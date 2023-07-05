@@ -8,6 +8,6 @@
 
         public uint ProjectID { get; set; }
 
-        public ulong DaysOfCoworking { get; set; }
+        public int DaysOfCoworking { get; set; }
     }
 }
