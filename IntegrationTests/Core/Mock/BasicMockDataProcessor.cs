@@ -54,6 +54,7 @@ namespace Employees.Infrastructure
                         new RawEmployeeProjectModel { EmployeeID = 2, ProjectID = 1, FromDate = DateTime.Now.AddDays(-30), ToDate = DateTime.Now.AddDays(-10) }
                     };
                     break;
+                case SimplePairUseCase.EmptyData:
                 default:
                     testData = new List<RawEmployeeProjectModel>();
                     break;
@@ -64,15 +65,16 @@ namespace Employees.Infrastructure
         {
             return testData;
         }
+    }
 
-        public enum SimplePairUseCase
-        {
-            TwoEmployeesCommonProjectLeftTopOverlap,
-            TwoEmployeesCommonProjectRightTopOverlap,
-            TwoEmployeesCommonProjectCompleteBottomOverlap,
-            TwoEmployeesCommonProjectCompleteTopOverlap,
-            TwoEmplyoyeesCommonProjectLeftTopOneDayOverlap,
-            TwoEmplyoyeesCommonProjectRightTopOneDayOverlap
-        }
+    public enum SimplePairUseCase
+    {
+        TwoEmployeesCommonProjectLeftTopOverlap,
+        TwoEmployeesCommonProjectRightTopOverlap,
+        TwoEmployeesCommonProjectCompleteBottomOverlap,
+        TwoEmployeesCommonProjectCompleteTopOverlap,
+        TwoEmplyoyeesCommonProjectLeftTopOneDayOverlap,
+        TwoEmplyoyeesCommonProjectRightTopOneDayOverlap,
+        EmptyData
     }
 }

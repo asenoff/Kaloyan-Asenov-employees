@@ -1,4 +1,4 @@
-using Employees.Core.Interfaces;
+﻿using Employees.Core.Interfaces;
 using Employees.Core.Employees;
 
 namespace Employees.Infrastructure
@@ -62,12 +62,12 @@ namespace Employees.Infrastructure
         {
             return testData;
         }
-
-        public enum MultiDataUseCase
-        {
-            TwoEmployeesTwoCommonProjectsSingleIntervals,
-            TwoEmployeesTwoCommonProjectsNoIntervalMatch,
-            TwoEmployeesOneProjectsMultiIntervals,
-        }
+    }
+    public enum MultiDataUseCase
+    {
+        TwoEmployeesTwoCommonProjectsSingleIntervals,
+        TwoEmployeesTwoCommonProjectsNoIntervalMatch,
+        TwoEmployeesOneProjectsMultiIntervals,
+        ThreeEmployeesFiveProjectsMultiData
     }
 }
