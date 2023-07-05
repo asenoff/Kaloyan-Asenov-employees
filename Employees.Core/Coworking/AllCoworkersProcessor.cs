@@ -21,7 +21,7 @@ namespace Employees.Core.Coworking
 
         private List<EmployeesProjectDaysModel> CalculateDaysByProjectAndPair(Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> data)
         {
-            List<EmployeesProjectDaysModel> daysByPairAndProject = new List<EmployeesProjectDaysModel>();
+            List<EmployeesProjectDaysModel> daysByPairAndProject = new();
             foreach (var employeePair in data)
             {
                 foreach (var project in employeePair.Value)
