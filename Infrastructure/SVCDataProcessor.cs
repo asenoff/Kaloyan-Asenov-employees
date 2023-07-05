@@ -1,15 +1,11 @@
 ﻿using Employees.Core.Employees;
 using Employees.Core.Interfaces;
 using CsvHelper;
-using CsvHelper.Configuration;
 using System.Globalization;
-using System.Reflection.PortableExecutable;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Runtime.Intrinsics.X86;
 
 namespace Employees.Infrastructure
 {
-    public class SVCDataProcessor : IDataProcessor
+    public class CSVDataProcessor : IDataProcessor
     {
         private readonly string[] DATE_FORMATS = {
             "yyyy-MM-dd",

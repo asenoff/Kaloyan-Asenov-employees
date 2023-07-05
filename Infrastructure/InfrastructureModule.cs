@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CsvHelper;
 using Employees.Core.Interfaces;
 
 namespace Employees.Infrastructure
@@ -8,7 +9,7 @@ namespace Employees.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             // Register services and dependencies
-            builder.RegisterType<MockDataProcessor>().As<IDataProcessor>();
+            builder.RegisterType<CSVDataProcessor>().As<IDataProcessor>();
         }
     }
 }
