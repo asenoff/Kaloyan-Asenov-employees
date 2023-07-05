@@ -45,8 +45,8 @@ namespace Employees.Infrastructure
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    string fromDateStr = csv.GetField("DateFrom") ?? "";
-                    string toDateStr = csv.GetField("DateTo") ?? "";
+                    string fromDateStr = csv.GetField("DateFrom")?.Trim() ?? "";
+                    string toDateStr = csv.GetField("DateTo")?.Trim() ?? "";
 
                     DateTime fromDate;
                     if (!DateTime.TryParseExact(fromDateStr, DATE_FORMATS, CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate))
