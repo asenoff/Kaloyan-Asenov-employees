@@ -9,6 +9,10 @@ namespace Employees.Core.Coworking
     {
         private IDataProcessor _dataProcessor;
 
+        // simple cache for last preprocessed data content
+        private static Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> cache;
+        private static int? hash = null;
+
         public CoworkersPreProcessor(IDataProcessor dataProcessor)
         {
             _dataProcessor = dataProcessor;
@@ -16,9 +20,20 @@ namespace Employees.Core.Coworking
 
         public Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> PreProcess(string data)
         {
+            var dataHash = data.GetHashCode();
+            if (dataHash == hash)
+            {
+                return cache;
+            }
+            else
+            {
+                hash = dataHash;
+            }
+
             List<RawEmployeeProjectModel> rawData = _dataProcessor.GetRawData(data);
             Dictionary<uint, Dictionary<uint, List<(DateTime, DateTime)>>> rawDataGroupedByProject = GroupDataByProjects(rawData);
             Dictionary<ulong, Dictionary<uint, List<(DateTime, DateTime)>>> intervalsCollaborated = CalculateIntervalsCollaborated(rawDataGroupedByProject);
+            cache = intervalsCollaborated;
             return intervalsCollaborated;
         }
 
