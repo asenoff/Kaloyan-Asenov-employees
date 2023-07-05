@@ -1,7 +1,9 @@
+using Employees.Common;
+
 namespace Employees.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class EmployeesCommonUnitTests
     {
         [TestMethod]
         public void TestMethod1()
