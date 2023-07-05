@@ -1,8 +1,7 @@
-﻿using Employees.Core.Employees;
+using Employees.Core.Employees;
 using Employees.Core.Interfaces;
 using Employees.Common;
 using Employees.Core.Coworking.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Employees.Core.Coworking
 {
