@@ -13,7 +13,7 @@
     @if (!string.IsNullOrEmpty(Model.FileContent))
     {
         <div>
-            <h4>CSV File Contents (first @Model.DisplayFileLength charachters):</h4>
+            <h6>CSV File Contents (first @Model.DisplayFileLength charachters):</h6>
             <pre>@Model.FileContent.Substring(0, @Model.DisplayFileLength)</pre>
         </div>
     }
@@ -27,7 +27,7 @@
 
     @if (Model.TopCoworkers.Count > 0)
     {
-        <p>EmployeeID 1, EmployeeID 2, Days of collaboration</p>
+        <h6>EmployeeID 1, EmployeeID 2, Days of collaboration</h6>
         <ul style="list-style-type:none;">
             @foreach (var coworker in Model.TopCoworkers)
             {
