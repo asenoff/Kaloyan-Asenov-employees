@@ -10,7 +10,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_OneResult()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(1, result.Count);
         }
@@ -18,7 +18,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_Employee1IDRight()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(1u, result[0].Employee1ID);
         }
@@ -26,7 +26,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_Employee2IDRight()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(2u, result[0].Employee2ID);
         }
@@ -34,7 +34,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_LeftTopOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectLeftTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(9,result[0].DaysCollaborated);
         }
@@ -42,7 +42,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_RightTopOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectRightTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectRightTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(6, result[0].DaysCollaborated);
         }
@@ -50,7 +50,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_CompleteBottomOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectCompleteBottomOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectCompleteBottomOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(6, result[0].DaysCollaborated);
         }
@@ -58,7 +58,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_CompleteTopOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmployeesCommonProjectCompleteTopOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmployeesCommonProjectCompleteTopOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(8, result[0].DaysCollaborated);
         }
@@ -66,7 +66,7 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_LeftTopOneDayOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmplyoyeesCommonProjectLeftTopOneDayOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmplyoyeesCommonProjectLeftTopOneDayOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(1, result[0].DaysCollaborated);
         }
@@ -74,9 +74,17 @@ namespace Employees.IntegrationTests.Core
         [TestMethod]
         public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworkedRight_RightTopOneDayOverlap()
         {
-            var mockDataProcessor = new BasicMockDataProcessor(BasicMockDataProcessor.SimplePairUseCase.TwoEmplyoyeesCommonProjectRightTopOneDayOverlap);
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.TwoEmplyoyeesCommonProjectRightTopOneDayOverlap);
             List<TopEmployeePairModel> result = Process(mockDataProcessor);
             Assert.AreEqual(1, result[0].DaysCollaborated);
+        }
+
+        [TestMethod]
+        public void ProcessTopEmployees_TwoEmployeesCommonProject_DaysCoworked_EmptyData()
+        {
+            var mockDataProcessor = new BasicMockDataProcessor(SimplePairUseCase.EmptyData);
+            List<TopEmployeePairModel> result = Process(mockDataProcessor);
+            Assert.AreEqual(0, result.Count);
         }
 
 
